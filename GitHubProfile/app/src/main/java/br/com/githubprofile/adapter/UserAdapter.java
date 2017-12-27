@@ -26,9 +26,9 @@ public class UserAdapter extends BaseAdapter {
     private List<User> userList;
     private Activity activity;
     private Context context;
-    @BindView(R.id.username)
+    @BindView(R.id.tv_username)
     TextView name;
-    @BindView(R.id.profileImage)
+    @BindView(R.id.iv_profileImage)
     ImageView image;
 
     public UserAdapter(List<User> userList, Activity activity) {

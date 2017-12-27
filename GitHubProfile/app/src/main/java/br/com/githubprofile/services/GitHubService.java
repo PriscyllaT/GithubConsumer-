@@ -19,6 +19,9 @@ public interface GitHubService {
     @GET("search/users?q=abi")
     Call<UserList> getUsersList();
 
+    @GET("/search/users")
+    Call<UserList> getUsersByName(@Query("q") String name);
+
     @GET("users/priscyllat")
     Call<User> getUser();
 }
