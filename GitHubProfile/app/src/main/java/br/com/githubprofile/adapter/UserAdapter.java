@@ -65,6 +65,7 @@ public class UserAdapter extends BaseAdapter {
                 .load(user.getAvatar())
                 .into(image);
 
+
         return row;
     }
 }

@@ -3,14 +3,9 @@ package br.com.githubprofile.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
 import br.com.githubprofile.R;
 import butterknife.BindView;
 
@@ -40,7 +35,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         }, DURACAO);
 
     }
-
 
     @Override
     protected void onDestroy() {

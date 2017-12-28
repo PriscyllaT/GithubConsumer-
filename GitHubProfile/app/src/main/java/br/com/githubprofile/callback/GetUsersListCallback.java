@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import br.com.githubprofile.activities.MainActivity;
 import br.com.githubprofile.models.User;
 import br.com.githubprofile.models.UserList;
 import retrofit2.Call;
@@ -18,12 +19,19 @@ import retrofit2.Response;
  */
 
 public class GetUsersListCallback implements Callback<UserList> {
+
+    private MainActivity activity;
+
+    public GetUsersListCallback(MainActivity activity){
+        this.activity = activity;
+    }
     @Override
     public void onResponse(Call<UserList> call, Response<UserList> response) {
-        if (response.isSuccessful()){
-            UserList users = response.body();
-            Log.d("callback", users.toString());
-            Log.d("callback", String.valueOf(users.getUserList()));
+        if (response.isSuccessful()) {
+            List<User> users = response.body().getUserList();
+            activity.populateUsersAdapter(users);
+            //falta aqui
+
         }
     }
 
