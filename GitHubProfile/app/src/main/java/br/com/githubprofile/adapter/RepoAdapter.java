@@ -8,41 +8,44 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import br.com.githubprofile.R;
+import br.com.githubprofile.models.Repo;
 import br.com.githubprofile.models.User;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Priscylla-SSD-2016 on 26/12/2017.
+ * Created by Priscylla-SSD-2016 on 27/12/2017.
  */
 
-public class UserAdapter extends BaseAdapter {
+public class RepoAdapter extends BaseAdapter {
 
-    private List<User> userList;
+    private List<Repo> repoList;
     private Activity activity;
-    @BindView(R.id.tv_login)
-    TextView tv_login;
-    @BindView(R.id.iv_profileImage)
-    ImageView image;
+    @BindView(R.id.tv_repoName)
+    TextView tv_name;
+    @BindView(R.id.tv_langage)
+    TextView tv_language;
 
-    public UserAdapter(List<User> userList, Activity activity) {
-        this.userList = userList;
+    public RepoAdapter(List<Repo> repoList, Activity activity) {
+        this.repoList = repoList;
         this.activity = activity;
     }
 
     @Override
     public int getCount() {
-        return userList.size();
+        return repoList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return userList.get(position);
+        return repoList.get(position);
     }
 
     @Override
@@ -53,17 +56,14 @@ public class UserAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View row = activity.getLayoutInflater().inflate(R.layout.user_row_layout, parent, false);
+        View row = activity.getLayoutInflater().inflate(R.layout.repo_row_layout, parent, false);
 
         ButterKnife.bind(this, row);
 
-        User user = userList.get(position);
+        Repo repo = repoList.get(position);
 
-        tv_login.setText(user.getLogin());
-
-        Picasso.with(activity)
-                .load(user.getAvatar())
-                .into(image);
+        tv_name.setText(repo.getName());
+        tv_language.setText(repo.getLanguage());
 
         return row;
     }

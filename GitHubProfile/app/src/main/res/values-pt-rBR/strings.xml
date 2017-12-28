@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GitHub Profile</string>
+    <string name="repo_text">Respositórios:</string>
+    <string name="bt_search_text">Pesquisar</string>
+</resources>

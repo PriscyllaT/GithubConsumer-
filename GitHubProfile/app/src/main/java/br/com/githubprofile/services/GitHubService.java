@@ -2,6 +2,7 @@ package br.com.githubprofile.services;
 
 import java.util.List;
 
+import br.com.githubprofile.models.Repo;
 import br.com.githubprofile.models.User;
 import br.com.githubprofile.models.UserList;
 import retrofit2.Call;
@@ -16,11 +17,14 @@ import retrofit2.http.Query;
 
 public interface GitHubService {
 
-    @GET("search/users?q=abi")
-    Call<UserList> getUsersList();
-
     @GET("/search/users")
     Call<UserList> getUsersByName(@Query("q") String name);
+
+    @GET("users/{user}/repos")
+    Call<List<Repo>> listRepos(@Path("user") String user);
+
+    @GET("search/users?q=priscylla")
+    Call<UserList> getUsersList();
 
     @GET("users/priscyllat")
     Call<User> getUser();

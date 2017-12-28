@@ -5,19 +5,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import br.com.githubprofile.R;
 import br.com.githubprofile.adapter.UserAdapter;
-import br.com.githubprofile.callback.GetUserCallback;
-import br.com.githubprofile.callback.GetUsersListCallback;
 import br.com.githubprofile.models.User;
 import br.com.githubprofile.models.UserList;
 import br.com.githubprofile.services.GitHubService;
@@ -39,7 +32,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.lv_usersList)
     ListView lv_usersList;
+    @BindView(R.id.bt_search)
+    Button bt_search;
+    @BindView(R.id.et_search)
+    EditText et_search;
     List<User> users;
+    GitHubService gitHubService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,44 +51,47 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-
-        GitHubService gitHubService = retrofit.create(GitHubService.class);
-
-//     Call<User> callUser = gitHubService.getUser();
-//     callUser.enqueue(new GetUserCallback());
-       Call<UserList> call = gitHubService.getUsersByName("priscylla");
-       call.enqueue(new Callback<UserList>() {
-           @Override
-           public void onResponse(Call<UserList> call, Response<UserList> response) {
-               if (response.isSuccessful()){
-                   users = response.body().getUserList();
-
-                   //UserAdapter adapter = new UserAdapter(users, getApplicationContext());
-                   populateAdapter(users);
-                   Log.d("callback", users.toString());
-                   Log.d("callback", String.valueOf(users.get(0)));
-               }
-           }
-
-           @Override
-           public void onFailure(Call<UserList> call, Throwable t) {
-               Log.d("callback", "Failed");
-           }
-       });
-
+       gitHubService = retrofit.create(GitHubService.class);
 
 
     }
 
-    private void populateAdapter(List<User> users){
+    private void populateUsersAdapter(List<User> users){
         UserAdapter adapter = new UserAdapter(users, this);
         lv_usersList.setAdapter(adapter);
     }
 
+    @OnClick(R.id.bt_search)
+    public void searchByName(){
+
+        String text = et_search.getText().toString();
+        et_search.setText("");
+
+        if(!(text.equals(null)) && !(text.isEmpty()) ) {
+
+            Call<UserList> call = gitHubService.getUsersByName(text);
+            call.enqueue(new Callback<UserList>() {
+                @Override
+                public void onResponse(Call<UserList> call, Response<UserList> response) {
+                    if (response.isSuccessful()) {
+                        users = response.body().getUserList();
+                        populateUsersAdapter(users);
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserList> call, Throwable t) {
+                    Log.d("callback", "Failed");
+                }
+            });
+        }
+    }
+
     @OnItemClick(R.id.lv_usersList)
-    void onItemClick(int position){
+    public void onItemClick(int position){
        if(users != null){
-           User clickedUser = users.get(position);
+           et_search.setText("");
            Intent intent = new Intent(this, UserDetailsActivity.class);
            intent.putExtra("login", users.get(position).getLogin());
            intent.putExtra("url",  users.get(position).getUrl());
@@ -98,10 +99,6 @@ public class MainActivity extends AppCompatActivity {
            startActivity(intent);
 
        }
-
-
-
-        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
 
     }
 }

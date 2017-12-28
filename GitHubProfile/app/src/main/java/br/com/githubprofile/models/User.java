@@ -22,12 +22,13 @@ public class User {
     @Expose
     String url;
 
-    public User(String login, Long id, String avatar, String url) {
+    public User(String login, String name, Long id, String avatar, String url) {
         this.login = login;
         this.id = id;
         this.avatar = avatar;
         this.url = url;
     }
+
 
     public String getLogin() {
         return login;

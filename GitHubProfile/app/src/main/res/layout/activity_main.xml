@@ -6,39 +6,54 @@
     android:layout_height="match_parent"
     tools:context="br.com.githubprofile.activities.MainActivity">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
     <LinearLayout
-
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <EditText
-        android:id="@+id/et_search"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/et_search"
-        android:text="Search"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shadowshape">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2" />
+
+            <Button
+                android:id="@+id/bt_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/et_search"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+                android:shadowRadius="5"
+                android:text="@string/bt_search_text"
+                android:textColor="@color/colorBlue" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lv_usersList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
     </LinearLayout>
-    <ListView
-        android:id="@+id/lv_usersList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
-</LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>
