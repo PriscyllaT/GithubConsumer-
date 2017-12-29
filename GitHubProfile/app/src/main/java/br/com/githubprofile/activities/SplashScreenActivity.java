@@ -11,7 +11,7 @@ import butterknife.BindView;
 
 public class SplashScreenActivity extends AppCompatActivity {
     //duração em milisegundos na splash screen
-    private static final int DURACAO = 1000;
+    private static final int DURATION = 1000;
     private Timer timer;
     @BindView(R.id.tv_splash)
     TextView tv_splash;
@@ -32,7 +32,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, DURACAO);
+        }, DURATION);
 
     }
 

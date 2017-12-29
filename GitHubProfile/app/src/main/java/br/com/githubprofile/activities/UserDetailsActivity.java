@@ -1,5 +1,7 @@
 package br.com.githubprofile.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -17,6 +19,7 @@ import br.com.githubprofile.models.Repo;
 import br.com.githubprofile.services.GitHubService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -87,5 +90,18 @@ public class UserDetailsActivity extends AppCompatActivity {
         lv_repo.setAdapter(repoAdapter);
     }
 
+    @OnItemClick(R.id.lv_repo)
+    public void showRepoIntent(int position){
+        Repo selectedRepo = (Repo) lv_repo.getItemAtPosition(position);
+        String repoName = selectedRepo.getName();
+        String link = getIntent().getExtras().getString("url");
+        if(!link.equals(null) && !link.isEmpty() && !repoName.equals(null) && !repoName.isEmpty()){
+            String completedLink = link + "/" + repoName;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(completedLink));
+            startActivity(i);
+        }
+
+    }
 
 }
