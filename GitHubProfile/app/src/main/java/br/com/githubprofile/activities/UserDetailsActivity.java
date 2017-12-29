@@ -1,30 +1,31 @@
 package br.com.githubprofile.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+import javax.inject.Inject;
 import br.com.githubprofile.R;
 import br.com.githubprofile.adapter.RepoAdapter;
-import br.com.githubprofile.adapter.UserAdapter;
+import br.com.githubprofile.app.GithubApplication;
+import br.com.githubprofile.callback.GetRepositoriesCallback;
+import br.com.githubprofile.component.GithubComponent;
 import br.com.githubprofile.models.Repo;
-import br.com.githubprofile.models.User;
 import br.com.githubprofile.services.GitHubService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Priscylla-SSD-2016 on 27/12/2017.
+ * Exibe detalhes do usário do github: nome, foto e repositórios.
  */
 
 public class UserDetailsActivity extends AppCompatActivity {
@@ -35,16 +36,23 @@ public class UserDetailsActivity extends AppCompatActivity {
     TextView tv_username;
     @BindView(R.id.lv_repo)
     ListView lv_repo;
-    GitHubService gitHubService;
     Bundle bundle;
 
+    @Inject
+    GitHubService gitHubService;
+    private GithubComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
-        ButterKnife.bind(this);
 
+        ButterKnife.bind(this);
+        GithubApplication application = (GithubApplication) getApplication();
+        component = application.getComponent();
+        component.inject(this);
+
+        //recupera dados do usuário pelo getExtras
         bundle = getIntent().getExtras();
         String avatar = bundle.getString("avatar_url");
         String login = bundle.getString("login");
@@ -61,34 +69,39 @@ public class UserDetailsActivity extends AppCompatActivity {
                     .build();
 
             gitHubService = retrofit.create(GitHubService.class);
-
-            Call<List<Repo>> call = gitHubService.listRepos(login);
-
-            call.enqueue(new Callback<List<Repo>>() {
-
-                @Override
-                public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
-                    if (response.isSuccessful()) {
-                        List<Repo> repositories = response.body();
-                        populateReposAdapter(repositories);
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<Repo>> call, Throwable t) {
-                    Log.d("callback", "Failed");
-                }
-            });
+            getRepos(login);
 
         }
 
     }
 
-    private void populateReposAdapter(List<Repo> repos){
+    public void getRepos(String login){
+        Call<List<Repo>> call = gitHubService.listRepos(login);
+        call.enqueue(new GetRepositoriesCallback(this));
+    }
+
+    public void getUserInfo(String login){
+        Call<List<Repo>> call = gitHubService.listRepos(login);
+        call.enqueue(new GetRepositoriesCallback(this));
+    }
+
+    public void populateReposAdapter(List<Repo> repos){
         RepoAdapter repoAdapter = new RepoAdapter(repos,this);
         lv_repo.setAdapter(repoAdapter);
     }
 
+    @OnItemClick(R.id.lv_repo)
+    public void showRepoIntent(int position){
+        Repo selectedRepo = (Repo) lv_repo.getItemAtPosition(position);
+        String repoName = selectedRepo.getName();
+        String link = getIntent().getExtras().getString("url");
+        if(!link.equals(null) && !link.isEmpty() && !repoName.equals(null) && !repoName.isEmpty()){
+            String completedLink = link + "/" + repoName;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(completedLink));
+            startActivity(i);
+        }
+
+    }
 
 }

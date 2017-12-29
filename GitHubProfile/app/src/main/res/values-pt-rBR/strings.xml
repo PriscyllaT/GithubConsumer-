@@ -3,4 +3,6 @@
     <string name="app_name">GitHub Profile</string>
     <string name="repo_text">Respositórios:</string>
     <string name="bt_search_text">Pesquisar</string>
+    <string name="tv_search_text">Digite o nome que você está procurando:</string>
+    <string name="warningNoUser">Nenhum usuário com esse nome.</string>
 </resources>

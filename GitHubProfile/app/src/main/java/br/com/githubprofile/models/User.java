@@ -18,7 +18,7 @@ public class User {
     @SerializedName("avatar_url")
     @Expose
     String avatar;
-    @SerializedName("url")
+    @SerializedName("html_url")
     @Expose
     String url;
 
