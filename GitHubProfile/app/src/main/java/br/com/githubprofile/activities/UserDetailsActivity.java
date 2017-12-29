@@ -77,6 +77,11 @@ public class UserDetailsActivity extends AppCompatActivity {
         call.enqueue(new GetRepositoriesCallback(this));
     }
 
+    public void getUserInfo(String login){
+        Call<List<Repo>> call = gitHubService.listRepos(login);
+        call.enqueue(new GetRepositoriesCallback(this));
+    }
+
     public void populateReposAdapter(List<Repo> repos){
         RepoAdapter repoAdapter = new RepoAdapter(repos,this);
         lv_repo.setAdapter(repoAdapter);

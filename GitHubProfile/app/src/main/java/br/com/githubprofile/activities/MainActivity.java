@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import java.util.List;
 import javax.inject.Inject;
 import br.com.githubprofile.R;
@@ -92,5 +94,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("avatar_url", selectedUser.getAvatar());
         startActivity(intent);
 
+    }
+
+    public void warningNoUser(){
+        Toast.makeText(this, R.string.warningNoUser, Toast.LENGTH_SHORT).show();
     }
 }

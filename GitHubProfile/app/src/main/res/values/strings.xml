@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">GitHub Profile</string>
-    <string name="repo_text">Repositories:</string>
+    <!--MainActivity-->
     <string name="bt_search_text">Search</string>
+    <string name="tv_search_text">Type the name you are looking for:</string>
+    <string name="warningNoUser">No user with this name.</string>
+
+    <!--UserDetailsActivity-->
+    <string name="repo_text">Repositories:</string>
+
 
 </resources>

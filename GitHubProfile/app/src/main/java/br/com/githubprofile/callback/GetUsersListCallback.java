@@ -29,8 +29,13 @@ public class GetUsersListCallback implements Callback<UserList> {
     public void onResponse(Call<UserList> call, Response<UserList> response) {
         if (response.isSuccessful()) {
             List<User> users = response.body().getUserList();
-            activity.populateUsersAdapter(users);
-            //falta aqui
+            if(users.size() == 0){
+                activity.warningNoUser();
+            }else {
+                activity.populateUsersAdapter(users);
+            }
+
+
 
         }
     }
