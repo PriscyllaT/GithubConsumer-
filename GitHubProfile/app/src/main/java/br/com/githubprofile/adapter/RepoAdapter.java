@@ -7,16 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import br.com.githubprofile.R;
 import br.com.githubprofile.models.Repo;
-import br.com.githubprofile.models.User;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

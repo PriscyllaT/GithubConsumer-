@@ -21,13 +21,22 @@ public class User {
     @SerializedName("html_url")
     @Expose
     String url;
+    @SerializedName("name")
+    @Expose
+    String name;
 
-    public User(String login, String name, Long id, String avatar, String url) {
+    public User(String login, Long id, String avatar, String url, String name, String location) {
         this.login = login;
         this.id = id;
         this.avatar = avatar;
         this.url = url;
+        this.name = name;
+        this.location = location;
     }
+
+    @SerializedName("location")
+    @Expose
+    String location;
 
 
     public String getLogin() {
@@ -62,6 +71,21 @@ public class User {
         this.url = url;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
 
 }

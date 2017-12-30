@@ -67,7 +67,7 @@ public class MainActivityTest {
                                         1),
                                 0),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("rafael"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("pedro"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.bt_search), withText("Pesquisar"),
@@ -78,18 +78,27 @@ public class MainActivityTest {
                                 1),
                         isDisplayed()));
         appCompatButton.perform(click());
-
         waitForAction();
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.tv_login), withText("rafael"),
+                allOf(withId(R.id.tv_login), withText("pedro"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.lv_usersList),
                                         0),
                                 1),
                         isDisplayed()));
-        textView.check(matches(withText("rafael")));
+        textView.check(matches(withText("pedro")));
+
+        ViewInteraction imageView = onView(
+                allOf(withId(R.id.iv_profileImage),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.lv_usersList),
+                                        0),
+                                0),
+                        isDisplayed()));
+        imageView.check(matches(isDisplayed()));
 
         DataInteraction linearLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.lv_usersList),
@@ -102,27 +111,26 @@ public class MainActivityTest {
         waitForAction();
 
         ViewInteraction textView2 = onView(
-                allOf(withId(R.id.tv_username), withText("rafael"),
+                allOf(withId(R.id.tv_username), withText("pedro"),
                         childAtPosition(
                                 childAtPosition(
                                         IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                        0),
-                                1),
+                                        1),
+                                0),
                         isDisplayed()));
-        textView2.check(matches(withText("rafael")));
+        textView2.check(matches(withText("pedro")));
 
         waitForAction();
 
         ViewInteraction textView3 = onView(
-                allOf(withId(R.id.tv_repoName), withText("active_model_serializers"),
+                allOf(withId(R.id.tv_repoName), withText("activerecord2-hstore"),
                         childAtPosition(
                                 childAtPosition(
                                         IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
                                         0),
                                 0),
                         isDisplayed()));
-        textView3.check(matches(withText("active_model_serializers")));
-        waitForAction();
+        textView3.check(matches(withText("activerecord2-hstore")));
 
         pressBack();
 
@@ -146,7 +154,7 @@ public class MainActivityTest {
                                         1),
                                 0),
                         isDisplayed()));
-        appCompatEditText3.perform(replaceText("Priscylla"), closeSoftKeyboard());
+        appCompatEditText3.perform(replaceText("priscylla"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.bt_search), withText("Pesquisar"),
@@ -160,37 +168,46 @@ public class MainActivityTest {
 
         waitForAction();
 
+
         DataInteraction linearLayout2 = onData(anything())
                 .inAdapterView(allOf(withId(R.id.lv_usersList),
                         childAtPosition(
                                 withClassName(is("android.widget.LinearLayout")),
                                 2)))
-                .atPosition(0);
+                .atPosition(9);
         linearLayout2.perform(click());
 
         waitForAction();
 
+        ViewInteraction textView4 = onView(
+                allOf(withId(R.id.tv_username), withText("PriscyllaT"),
+                        childAtPosition(
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+                                        1),
+                                0),
+                        isDisplayed()));
+        textView4.check(matches(withText("PriscyllaT")));
+
+        waitForAction();
+
         ViewInteraction textView6 = onView(
-                allOf(withId(R.id.tv_repoName), withText("advanced-programming-course"),
+                allOf(withId(R.id.tv_repoName), withText("GithubConsumer-"),
                         childAtPosition(
                                 childAtPosition(
                                         IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
                                         0),
                                 0),
                         isDisplayed()));
-        textView6.check(matches(withText("advanced-programming-course")));
+        textView6.check(matches(withText("GithubConsumer-")));
 
-        ViewInteraction textView7 = onView(
-                allOf(withId(R.id.tv_langage), withText("C++"),
+        DataInteraction linearLayout3 = onData(anything())
+                .inAdapterView(allOf(withId(R.id.lv_repo),
                         childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                        0),
-                                1),
-                        isDisplayed()));
-        textView7.check(matches(withText("C++")));
-
-        pressBack();
+                                withClassName(is("android.widget.LinearLayout")),
+                                2)))
+                .atPosition(0);
+        linearLayout3.perform(click());
         waitForAction();
 
 

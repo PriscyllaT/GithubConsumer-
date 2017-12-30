@@ -4,6 +4,7 @@
     <string name="bt_search_text">Search</string>
     <string name="tv_search_text">Type the name you are looking for:</string>
     <string name="warningNoUser">No user with this name.</string>
+    <string name="notPossibleToConnect">Something went wrong when searching users. Verify your network.</string>
 
     <!--UserDetailsActivity-->
     <string name="repo_text">Repositories:</string>

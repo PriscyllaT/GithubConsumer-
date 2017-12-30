@@ -95,7 +95,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public void warningNoUser(){
         Toast.makeText(this, R.string.warningNoUser, Toast.LENGTH_SHORT).show();
+    }
+
+    public void notPossibleToConnect(){
+        Toast.makeText(this, R.string.notPossibleToConnect, Toast.LENGTH_SHORT).show();
     }
 }

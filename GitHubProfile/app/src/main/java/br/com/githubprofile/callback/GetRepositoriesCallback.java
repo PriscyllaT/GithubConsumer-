@@ -1,12 +1,8 @@
 package br.com.githubprofile.callback;
 
-import android.util.Log;
-
 import java.util.List;
-
 import br.com.githubprofile.activities.UserDetailsActivity;
 import br.com.githubprofile.models.Repo;
-import br.com.githubprofile.models.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +32,6 @@ public class GetRepositoriesCallback implements Callback<List<Repo>> {
 
     @Override
     public void onFailure(Call<List<Repo>> call, Throwable t) {
-
+        userDetailsActivity.notPossibleToConnect();
     }
 }

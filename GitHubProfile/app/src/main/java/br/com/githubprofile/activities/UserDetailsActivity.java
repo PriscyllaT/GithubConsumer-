@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 import javax.inject.Inject;
@@ -14,8 +15,10 @@ import br.com.githubprofile.R;
 import br.com.githubprofile.adapter.RepoAdapter;
 import br.com.githubprofile.app.GithubApplication;
 import br.com.githubprofile.callback.GetRepositoriesCallback;
+import br.com.githubprofile.callback.GetUserCallback;
 import br.com.githubprofile.component.GithubComponent;
 import br.com.githubprofile.models.Repo;
+import br.com.githubprofile.models.User;
 import br.com.githubprofile.services.GitHubService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +39,10 @@ public class UserDetailsActivity extends AppCompatActivity {
     TextView tv_username;
     @BindView(R.id.lv_repo)
     ListView lv_repo;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+    @BindView(R.id.tv_location)
+    TextView tv_location;
     Bundle bundle;
 
     @Inject
@@ -61,7 +68,6 @@ public class UserDetailsActivity extends AppCompatActivity {
             Picasso.with(this)
                     .load(avatar)
                     .into(iv_avatar);
-            tv_username.setText(login);
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl( "https://api.github.com/")
@@ -70,6 +76,7 @@ public class UserDetailsActivity extends AppCompatActivity {
 
             gitHubService = retrofit.create(GitHubService.class);
             getRepos(login);
+            getUserInfo(login);
 
         }
 
@@ -81,14 +88,24 @@ public class UserDetailsActivity extends AppCompatActivity {
     }
 
     public void getUserInfo(String login){
-        Call<List<Repo>> call = gitHubService.listRepos(login);
-        call.enqueue(new GetRepositoriesCallback(this));
+       Call<User> call = gitHubService.getUser(login);
+       call.enqueue(new GetUserCallback(this));
     }
 
     public void populateReposAdapter(List<Repo> repos){
         RepoAdapter repoAdapter = new RepoAdapter(repos,this);
         lv_repo.setAdapter(repoAdapter);
     }
+
+   public void populateUserInfo(User user){
+        if(user !=null){
+            tv_username.setText(user.getLogin());
+            tv_name.setText(user.getName());
+            tv_location.setText(user.getLocation());
+        }
+
+
+   }
 
     @OnItemClick(R.id.lv_repo)
     public void showRepoIntent(int position){
@@ -104,4 +121,11 @@ public class UserDetailsActivity extends AppCompatActivity {
 
     }
 
+    public void warningNoUser(){
+        Toast.makeText(this, R.string.warningNoUser, Toast.LENGTH_SHORT).show();
+    }
+
+    public void notPossibleToConnect(){
+        Toast.makeText(this, R.string.notPossibleToConnect, Toast.LENGTH_SHORT).show();
+    }
 }

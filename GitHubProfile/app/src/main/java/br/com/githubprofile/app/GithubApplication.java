@@ -1,7 +1,6 @@
 package br.com.githubprofile.app;
 
 import android.app.Application;
-
 import br.com.githubprofile.component.DaggerGithubComponent;
 import br.com.githubprofile.component.GithubComponent;
 import br.com.githubprofile.module.GithubModule;
