@@ -48,4 +48,9 @@ Para executar os testes vá na pasta test.activities.
 
 * [Gradle](https://gradle.org/) 
 
+## Warning
+A API do Github possui limites de requisição, podendo não mostrar dados do usuário após esse limite.
+https://developer.github.com/v3/#rate-limiting
+
+
 
